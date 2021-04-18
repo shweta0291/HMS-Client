@@ -69,28 +69,30 @@ check_login();
 <tbody>
 <?php
 $uid=$_SESSION['id'];
-$sql=mysqli_query($con,"select tblpatient.* from tblpatient join users on users.email=tblpatient.PatientEmail where users.id='$uid'");
+$jsonurl=
+$json = json_decode(file_get_contents('http://hmsserver-env.eba-vxzjzsed.us-east-1.elasticbeanstalk.com/hms_admin/medical-history-api.php?id=5'),true);
 $cnt=1;
-while($row=mysqli_fetch_array($sql))
-{
+foreach ($json['data'] as $list){
+
+							echo "<tr>";?>
+								<td class="center"><?php echo $cnt;?>.</td>
+								<td class="hidden-xs"><?php echo "".$list['PatientName']."";?></td>
+								<?php echo "<td>".$list['PatientName']."</td>
+								<td>".$list['PatientContno']."</td>
+								<td>".$list['PatientGender']."</td>
+								<td>".$list['CreationDate']."</td>"?>
+								<td>
+
+<a href="view-medhistory.php?viewid=<?php echo "".$list['ID']."";?>"><i class="fa fa-eye"></i></a>
+
+</td>
+							<?php echo "</tr>";
+							$cnt=$cnt+1;
+					}
+
 ?>
-<tr>
-<td class="center"><?php echo $cnt;?>.</td>
-<td class="hidden-xs"><?php echo $row['PatientName'];?></td>
-<td><?php echo $row['PatientContno'];?></td>
-<td><?php echo $row['PatientGender'];?></td>
-<td><?php echo $row['CreationDate'];?></td>
-<td><?php echo $row['UpdationDate'];?>
-</td>
-<td>
-
-<a href="view-medhistory.php?viewid=<?php echo $row['ID'];?>"><i class="fa fa-eye"></i></a>
-
-</td>
-</tr>
-<?php 
-$cnt=$cnt+1;
- }?></tbody>
+	
+</tbody>
 </table>
 </div>
 </div>
