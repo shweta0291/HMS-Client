@@ -70,7 +70,7 @@ check_login();
 <?php
 $uid=$_SESSION['id'];
 $jsonurl=
-$json = json_decode(file_get_contents('http://hmsserver-env.eba-vxzjzsed.us-east-1.elasticbeanstalk.com/hms_admin/medical-history-api.php?id=5'),true);
+$json = json_decode(file_get_contents('http://hmsserver-env.eba-vxzjzsed.us-east-1.elasticbeanstalk.com/hms_admin/medical-history-api.php'),true);
 $cnt=1;
 foreach ($json['data'] as $list){
 
